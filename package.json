@@ -1,0 +1,33 @@
+{
+  "name": "hanabot",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "migrate": "prisma migrate dev",
+    "generate": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.14.1",
+    "@types/lodash": "^4.14.195",
+    "@types/node": "20.2.5",
+    "@types/react": "18.2.7",
+    "@types/react-dom": "18.2.4",
+    "chalk": "^4.1.2",
+    "eslint": "8.41.0",
+    "eslint-config-next": "13.4.4",
+    "lodash": "^4.17.21",
+    "next": "13.4.4",
+    "openai": "^3.2.1",
+    "prisma": "^4.14.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1"
+  }
+}

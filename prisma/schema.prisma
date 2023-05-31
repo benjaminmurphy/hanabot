@@ -1,0 +1,60 @@
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:postgres@localhost:5432/hanabot"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Game {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  initialDeck      String[]
+
+  players Player[]
+  turns   Turn[]
+}
+
+model Player {
+  id        Int      @id @default(autoincrement())
+  game      Game     @relation(fields: [gameId], references: [id])
+  gameId    Int
+  createdAt DateTime @default(now())
+  initialHand String[]
+  name      String
+
+  turns Turn[] @relation("PlayerTurns")
+  hints Turn[] @relation("HintTarget")
+}
+
+enum HintType {
+  COLOR_RED
+  COLOR_BLUE
+  COLOR_WHITE
+  COLOR_YELLOW
+  COLOR_GREEN
+  NUMBER_ONE
+  NUMBER_TWO
+  NUMBER_THREE
+  NUMBER_FOUR
+  NUMBER_FIVE
+}
+
+model Turn {
+  id        Int      @id @default(autoincrement())
+  game      Game     @relation(fields: [gameId], references: [id])
+  gameId    Int
+  player    Player   @relation("PlayerTurns", fields: [playerId], references: [id])
+  playerId  Int
+  createdAt DateTime @default(now())
+
+  // Turns may either be a hint, a discard, or a play.
+  hintTarget   Player?   @relation("HintTarget", fields: [hintTargetId], references: [id])
+  hintTargetId Int?
+  hintType     HintType?
+
+  discardIndex Int?
+  playIndex    Int?
+}
